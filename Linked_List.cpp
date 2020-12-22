@@ -11,6 +11,7 @@ using T2 = T;
 
 
 
+//template<typename T>
 class Linked_List
 {
 	//template<typename T2>
@@ -20,31 +21,31 @@ class Linked_List
 		__Node* m_Next;
 
 		__Node(const T2& data, __Node*& next)	: m_Data(data), m_Next(next) {}
-		__Node(const T2& data)					      : m_Data(data), m_Next(nullptr) {}
+		__Node(const T2& data)			: m_Data(data), m_Next(nullptr) {}
 	};
 
 	using Node = __Node;
-	//using Node = __Node<T>;   // To Change all the Nodes at once
-	Node* m_Head;				        // For Keeping Track
-	Node* m_Tail;				        // For adding new element in the List
-	size_t m_size;				      // Size of List
-	static Node* m_It;			    // Temporary Iterator
+	//using Node = __Node<T>;	// To Change all the Nodes at once
+	Node* m_Head;			// For Keeping Track
+	Node* m_Tail;			// For adding new element in the List
+	size_t m_size;			// Size of List
+	static Node* m_It;		// Temporary Iterator
 
 	void move_Iterator(const int& i)
 	{
 		// Preparing an Iterator
 		// ------------
 
-		  begin();
+			begin();
 
 
 		// Iterating till index
 		// ------------
 
-      for (int i_it = 1; i_it != i; ++i_it)
-      {
-        m_It = m_It->m_Next;
-      }
+		      for (int i_it = 1; i_it != i; ++i_it)
+		      {
+			m_It = m_It->m_Next;
+		      }
 	}
 
 	void insert(const T& n)
@@ -53,20 +54,20 @@ class Linked_List
 		// new_Node and previous Node
 		// -----------------
 
-		  m_It->m_Next = new Node(n, m_It->m_Next);
+			m_It->m_Next = new Node(n, m_It->m_Next);
 
 		// Incrementing size
 		// -----------------
 
-		  ++m_size;
+			++m_size;
 	}
 
 	template<class T3>
 	void swap(T3& _Left, T3& _Right) noexcept
 	{
-      T3 _Tmp = move(_Left);
-      _Left = move(_Right);
-      _Right = move(_Tmp);
+	      T3 _Tmp = move(_Left);
+	      _Left = move(_Right);
+	      _Right = move(_Tmp);
 	}
 
 
@@ -79,7 +80,7 @@ public:
 		// Adding all Nodes
 		// ------------
 
-		  for (int i = 1; i < L.size(); ++i) m_Tail = m_Tail->m_Next = new Node(L.begin()[i]);
+			for (int i = 1; i < L.size(); ++i) m_Tail = m_Tail->m_Next = new Node(L.begin()[i]);
 	}
 
 	void add(const T& i)
@@ -87,7 +88,7 @@ public:
 		// Adding new Node
 		// ---------------
 
-		(m_Head == nullptr) ? m_Head = m_Tail = new Node(i) : m_Tail = m_Tail->m_Next = new Node(i); ++m_size;
+			(m_Head == nullptr) ? m_Head = m_Tail = new Node(i) : m_Tail = m_Tail->m_Next = new Node(i); ++m_size;
 	}
 
 	void add_front(const T& i)
@@ -95,7 +96,7 @@ public:
 		// Nodenizing
 		// ----------
 
-		m_Head = new Node(i, m_Head); ++m_size;
+			m_Head = new Node(i, m_Head); ++m_size;
 	}
 
 	void begin()
@@ -113,23 +114,23 @@ public:
 		// Moving the Iterator to (index - 1)
 		// -------------
 
-		move_Iterator(index - 1);
+			move_Iterator(index - 1);
 
 		// Selecting the Item to be deleted
 		// -------------
 
-		Node* n_target = move(m_It->m_Next);
+			Node* n_target = move(m_It->m_Next);
 
 		// Linking (index + 1) and (index - 1)
 		// -------------
 
-		m_It->m_Next = m_It->m_Next->m_Next;
+			m_It->m_Next = m_It->m_Next->m_Next;
 
 		// Deleting the Target
 		// -------------
 
-		delete n_target;
-		--m_size;
+			delete n_target;
+			--m_size;
 	}
 
 	void remove_every(const T& n)
@@ -137,34 +138,34 @@ public:
 		// m_Head Checks
 		// -----------------
 
-		while (m_Head->m_Data == n) remove_Head();
+			while (m_Head->m_Data == n) remove_Head();
 
 
 		// Running m_It without checking
 		// m_Head and m_Tail
 		// -----------------
 
-		begin();
-		for (Node* m_Excluder; m_It->m_Next != m_Tail; m_It = m_It->m_Next)
-		{
-			while (m_It->m_Next->m_Data == n)
+			begin();
+			for (Node* m_Excluder; m_It->m_Next != m_Tail; m_It = m_It->m_Next)
 			{
-				m_Excluder = move(m_It->m_Next);
-				m_It->m_Next = m_It->m_Next->m_Next;
-				delete m_Excluder; --m_size;
+				while (m_It->m_Next->m_Data == n)
+				{
+					m_Excluder = move(m_It->m_Next);
+					m_It->m_Next = m_It->m_Next->m_Next;
+					delete m_Excluder; --m_size;
+				}
 			}
-		}
 
 
 		// m_Tail Check
 		// -----------------
 
-		if (m_It->m_Next->m_Data == n)
-		{
-			delete m_It->m_Next;
-			m_Tail = m_It;
-			m_Tail->m_Next = nullptr; --m_size;
-		}
+			if (m_It->m_Next->m_Data == n)
+			{
+				delete m_It->m_Next;
+				m_Tail = m_It;
+				m_Tail->m_Next = nullptr; --m_size;
+			}
 	}
 
 	void remove_Head()
@@ -172,13 +173,13 @@ public:
 		// Using iterator as m_Target
 		// --------------
 
-		m_It = m_Head;
-		m_Head = m_Head->m_Next;
+			m_It = m_Head;
+			m_Head = m_Head->m_Next;
 
 		// Deletion of Orginal Head
 		// --------------
 
-		delete m_It; --m_size;
+			delete m_It; --m_size;
 	}
 
 	void remove_Tail()
@@ -186,20 +187,20 @@ public:
 		// Using m_Tail as Iterator
 		// --------------
 
-		m_Tail = m_Head;
+			m_Tail = m_Head;
 
 		// Iterating just before the m_Tail
 		// --------------
 
-		for (int i = 1; i < (m_size - 1); ++i)
-		{
-			m_Tail = m_Tail->m_Next;
-		}
+			for (int i = 1; i < (m_size - 1); ++i)
+			{
+				m_Tail = m_Tail->m_Next;
+			}
 
 		// Deleting original m_Tail
 		// --------------
 
-		delete m_Tail->m_Next; m_Tail->m_Next = nullptr; --m_size;
+			delete m_Tail->m_Next; m_Tail->m_Next = nullptr; --m_size;
 	}
 
 	void insert_before(const T& i, const int& index)
@@ -207,17 +208,17 @@ public:
 		// Selecting the (index - 1) Node
 		// -----------------
 
-		move_Iterator(index - 1);
+			move_Iterator(index - 1);
 
 		// Inserting Data at iterator
 		// -----------------
 
-		insert(i);
+			insert(i);
 
 		// Flushing Iterator
 		// -----------------
 
-		m_It = nullptr;
+			m_It = nullptr;
 	}
 
 	void insert_after(const T& i, const int& index)
@@ -225,17 +226,17 @@ public:
 		// Selecting the index Node
 		// -----------------
 
-		move_Iterator(index);
+			move_Iterator(index);
 
 		// Inserting Data at iterator
 		// -----------------
 
-		insert(i);
+			insert(i);
 
 		// Flushing Iterator
 		// -----------------
 
-		m_It = nullptr;
+			m_It = nullptr;
 	}
 
 	void insert_before_n_after(const T& i, const int& index)
@@ -243,15 +244,15 @@ public:
 		// Selecting the index Node
 		// -----------------
 
-		move_Iterator(index - 1);
-		insert(i);
-		m_It = m_It->m_Next->m_Next;
-		insert(i);
+			move_Iterator(index - 1);
+			insert(i);
+			m_It = m_It->m_Next->m_Next;
+			insert(i);
 
 		// Flushing Iterator
 		// -----------------
 
-		m_It = nullptr;
+			m_It = nullptr;
 	}
 
 	void update_Data_at(const T& data, const int& index)
@@ -259,52 +260,52 @@ public:
 		// Moving Iterator
 		// ---------------
 
-		move_Iterator(index);
+			move_Iterator(index);
 
 		// Inserting Perticular Data
 		// ---------------
 
-		m_It->m_Data = move(*(int*)&data);
-		m_It = nullptr;
+			m_It->m_Data = move(*(int*)&data);
+			m_It = nullptr;
 	}
 
 	void swap_Nodes(int&& index1, int&& index2)
 	{
 		// Arranging in Order to better Optimize it later
 
-		if (index2 < index1)
-		{
-			swap(index1, index2);
-		}
+			if (index2 < index1)
+			{
+				swap(index1, index2);
+			}
 
 		// Moving 1st Iterator at index1
 
-		move_Iterator(index1);
+			move_Iterator(index1);
 
 		// Creating 2nd Iterator and Moving it at index2 from index1
 
-		Node* m_it_2 = m_It;
-		for (int i_it = index1; i_it != index2; ++i_it) m_it_2 = m_it_2->m_Next;
+			Node* m_it_2 = m_It;
+			for (int i_it = index1; i_it != index2; ++i_it) m_it_2 = m_it_2->m_Next;
 
 		// Swaping Nodes
 
-		swap(m_It->m_Data, m_it_2->m_Data);
+			swap(m_It->m_Data, m_it_2->m_Data);
 	}
 
 	void swap_Nodes(const int& index1, const int& index2)
 	{
 		// Moving 1st Iterator at index1
 
-		move_Iterator(index1);
+			move_Iterator(index1);
 
 		// Creating 2nd Iterator and Moving it at index2 from index1
 
-		Node* m_it_2 = m_Head;
-		for (int i_it = 1; i_it != index2; ++i_it) m_it_2 = m_it_2->m_Next;
+			Node* m_it_2 = m_Head;
+			for (int i_it = 1; i_it != index2; ++i_it) m_it_2 = m_it_2->m_Next;
 
 		// Swaping Nodes
 
-		swap(m_It->m_Data, m_it_2->m_Data);
+			swap(m_It->m_Data, m_it_2->m_Data);
 	}
 
 	bool is_empty() const
@@ -317,12 +318,12 @@ public:
 		// Iterating the whole List
 		// --------------
 
-		while (m_Head != nullptr)
-		{
-			m_It = m_Head;
-			m_Head = m_Head->m_Next;
-			delete m_It;
-		}
+			while (m_Head != nullptr)
+			{
+				m_It = m_Head;
+				m_Head = m_Head->m_Next;
+				delete m_It;
+			}
 		m_size = 0;
 	}
 
@@ -336,9 +337,9 @@ public:
 		// Initialization
 		// --------------
 
-		Node* pre_it = nullptr;
-		m_It = m_Head;
-		Node* dex_it = m_It->m_Next;
+			Node* pre_it = nullptr;
+			m_It = m_Head;
+			Node* dex_it = m_It->m_Next;
 
 
 		while (dex_it != nullptr)
@@ -361,9 +362,9 @@ public:
 		// Swapping Head and Tailes
 		// ----------------
 
-		m_It = m_Head;
-		m_Head = m_Tail;
-		m_Tail = m_It;
+			m_It = m_Head;
+			m_Head = m_Tail;
+			m_Tail = m_It;
 	}
 
 	void Print_All()
@@ -396,40 +397,40 @@ public:
 		// Declaring Iterator
 		// ------------------
 
-		begin();
+			begin();
 
 		// Lambda which Iterates and Prints Only
 		// ------------------
 
-		const auto Print = [&](const auto& Print)
-		{
-			if (m_It == nullptr) return;
+			const auto Print = [&](const auto& Print)
+			{
+				if (m_It == nullptr) return;
 
-			// Printing the Data at Iterator
-			// --------------------
+				// Printing the Data at Iterator
+				// --------------------
 
-			cout << "Data : [ " << m_It->m_Data << " ]" << endl;
+				cout << "Data : [ " << m_It->m_Data << " ]" << endl;
 
-			// Iterating the Iterator
-			// --------------------
+				// Iterating the Iterator
+				// --------------------
 
-			m_It = m_It->m_Next;
+				m_It = m_It->m_Next;
 
-			// Calling the Lambda
-			// --------------------
+				// Calling the Lambda
+				// --------------------
 
-			Print(Print);
-		};
+				Print(Print);
+			};
 
 		// Recursive Callings using While Loop
 		// ------------------
 
-		Print(Print);
+			Print(Print);
 
 		// Printing Size as well
 		// ------------------
 
-		Print_Size();
+			Print_Size();
 	}
 
 	void Print_Reverse()
@@ -437,41 +438,41 @@ public:
 		// Declaring Iterator to Head to be used later
 		// --------------------
 
-		begin();
+			begin();
 
 		// Declaring Lambda
 		// --------------------
 
-		const auto Print_Rev = [&](const auto& Print_Rev, Node* t_it = m_It) -> void
-		{
-			// Checking if the t_it is Empty
-			// -----------------
-
-			if (t_it != nullptr)
+			const auto Print_Rev = [&](const auto& Print_Rev, Node* t_it = m_It) -> void
 			{
-				// Iterating to the Next Block
-				// ---------
+				// Checking if the t_it is Empty
+				// -----------------
 
-				Print_Rev(Print_Rev, t_it->m_Next);
+				if (t_it != nullptr)
+				{
+					// Iterating to the Next Block
+					// ---------
 
-				// Printing out at the End
-				// ---------
+					Print_Rev(Print_Rev, t_it->m_Next);
 
-				cout << "Data : [ " << t_it->m_Data << " ]" << endl;
-			}
+					// Printing out at the End
+					// ---------
 
-		};
+					cout << "Data : [ " << t_it->m_Data << " ]" << endl;
+				}
+
+			};
 
 		// Calling Anonymous Function
 		// --------------------
 
-		Print_Rev(Print_Rev);
+			Print_Rev(Print_Rev);
 
 		// Priniting the Size
 		// --------------------
 
-		cout << "------------\n";
-		Print_Size();
+			cout << "------------\n";
+			Print_Size();
 	}
 
 	void Print_Size() const
@@ -484,22 +485,22 @@ public:
 		// Initialization
 		// --------------
 
-		begin();
-		int i_it = 0;
+			begin();
+			int i_it = 0;
 
 		// Checking for Size
 		// --------------
 
-		while (m_It != nullptr)
-		{
-			m_It = m_It->m_Next;
-			++i_it;
-		}
+			while (m_It != nullptr)
+			{
+				m_It = m_It->m_Next;
+				++i_it;
+			}
 
 		// Returning the Result
 		// --------------
 
-		return (m_size == i_it);
+			return (m_size == i_it);
 	}
 
 	const size_t& get_Size() const
